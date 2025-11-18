@@ -26,7 +26,7 @@ pipeline {
             steps {
                 dir('backend') {
                     script {
-                        withDockerRegistry(credentialsId: 'docker-creds', toolName: 'docker') {
+                        withDockerRegistry(credentialsId: 'docker-creds') {
                             sh "docker build -t ${DOCKER_IMAGE} ."
                         }
                     }
@@ -38,7 +38,7 @@ pipeline {
         stage('Push to Docker Hub') {
             steps {
                 script {
-                    withDockerRegistry(credentialsId: 'docker-creds', toolName: 'docker') {
+                    withDockerRegistry(credentialsId: 'docker-creds') {
                         sh """
                         docker tag ${DOCKER_IMAGE} ${DOCKER_IMAGE}
                         docker push ${DOCKER_IMAGE}
